@@ -10,8 +10,7 @@ if __name__ == '__main__':
     funcion()
     print(pymongo.version)
 
-    client = pymongo.MongoClient(
-        "mongodb+srv://admin:zxcv123456@prueba-lprhj.mongodb.net/test?retryWrites=true&w=majority")
+    client = pymongo.MongoClient("mongodb+srv://admin:zxcv123456@prueba-lprhj.mongodb.net/test?retryWrites=true&w=majority")
     db = client.bd_prueba
     coleccion = db.coleccion
 
