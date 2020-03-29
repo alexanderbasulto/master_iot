@@ -43,19 +43,18 @@ def get_top_3(dbmongo):
 def get_media(dbmongo):
     print()
     print("Se va calcular la media de la Altitud de todas las estaciones:")
-    for x in dbmongo.aggregate([{"$group": {"_id": 1, "Promedio": {"$avg": "$altitude"}}}]):
+    for x in dbmongo.aggregate([{"$group" : {"_id": 1, "promedio": {"$avg":"$altitude"}, "Total de Estaciones": {"$sum": 1}}}]):
         print(x)
     return()
 
-if __name__ == "__main__":      #Programa principal
-    datos_json = descarga_datos()
-    print(datos_json)
-    crear_archivo(datos_json)
-    print("Archivo creado....")
-    url_mongo = mongodb_connect()
-    mongodb_send(data_to_send=datos_json, dbmongo=url_mongo)
-    print("Datos enviados a MongoDB....")
-    get_attr(url_mongo)
-    get_top_3(url_mongo)
-    get_media(url_mongo)
+if __name__ == "__main__":                          #Programa principal
+    datos_json = descarga_datos()                   #Llama a la funcion descarga_datos y devuelve el valor a la variable
+    crear_archivo(datos_json)                       #Llama a la funcion crear_archivo, para crear el documento .json
+    print("Archivo creado....")                     #Imprime en consola que el documento fue creado
+    url_mongo = mongodb_connect()                   #Llama a la funcion mongodb_connect para cargar la dirrecion de Mongo en la variable
+    mongodb_send(data_to_send=datos_json, dbmongo=url_mongo)    #Llama a la funcion mongodb_send para enviar laos datos
+    print("Datos enviados a MongoDB....")           #Imprime en consola que los datos fueron enviados
+    get_attr(url_mongo)                             #Consulta sobre un atributo numerico en todos los datos
+    get_top_3(url_mongo)                            #Devuelve el top 3 de las estaciones segun el atributo escogido
+    get_media(url_mongo)                            #Calcula la media de un atributo de todos los datos
     print("Programa terminado.")
